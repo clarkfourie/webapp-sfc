@@ -13,7 +13,8 @@ if($link === false){
 }
  
 // Attempt insert query execution
-$sql = "INSERT INTO users (id, username, password, name, surname, email, rsaid) VALUES (2, 'Spiderman', md5(1234), 'Peter', 'Parker', 'peterparker@mail.com', 9102055039080)";
+// Purposefully leave out id & corresponding value as it is set to AUTO_INCREMENT
+$sql = "INSERT INTO users (username, password, name, surname, email, rsaid) VALUES ('Batman', md5(1234), 'Bruce', 'Wayne', 'batman@mail.com', 9102055039080)";
 if(mysqli_query($link, $sql)){
     echo "Records added successfully.";
 } else{
