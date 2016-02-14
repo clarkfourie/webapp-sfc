@@ -5,43 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Spoilt for Choice</title>
 <link rel="stylesheet" href="css/style.css" type="text/css" />
-<!-- hotlinking jQuery -->
+<!-- hotlinking jQuery and jQuery validation plugin -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
-<script type="text/javascript">
-
-//jQuery test
-
-// window.onload = function() {
-//     if (window.jQuery) {  
-//         // jQuery is loaded  
-//         alert("Yeah!");
-//     } else {
-//         // jQuery is not loaded
-//         alert("Doesn't Work");
-//     }
-// }
-
-$(function(){
-  alert("made it")
-
-            $('#register').validate({
-                rules: {
-                    firstname: "required",
-                    lastname: "required",
-                },
-                messages: {
-                    firstname: "Please enter your first name.",
-                    lastname: "Please enter your last name.",
-                },
-                errorContainer: $('#errorContainer'),
-                errorLabelContainer: $('#errorContainer ul'),
-                wrapper: 'li'
-            });
-
-        });
-
-</script>
+<script src="js/validation.js"></script>
 </head>
 <body class="login">
 <!-- header starts here -->
@@ -82,12 +49,6 @@ $(function(){
         <p>
           <input type="text" id="firstname" name="firstname" placeholder="First Name" value="" class="radius mini" />
           <input type="text" id="lastname" name="lastname" placeholder="Last Name" value="" class="radius mini" />
-
-          <div id="errorContainer">
-            <p>&nbsp;Please correct the following errors and try again:</p>
-            <ul />
-          </div>
-
         </p>
         <p>
           <input type="text" id="email" name="email" placeholder="Your Email" value="" class="radius" />
@@ -102,9 +63,18 @@ $(function(){
           <input type="text" id="rsaid" name="rsaid" placeholder="RSA ID Number" value="" class="radius" />
         </p>
         <p>
-          <button class="radius title" name="signup">Sign Up for SFC</button>
+          <button class="radius title" name="submit">Sign Up for SFC</button>
         </p>
       </form>
+    </div>
+    <div id="errorContainer">
+      <p> Please address the issues above and try again </p>
+      <span><?php echo $firstnameErr;?></span>
+      <span><?php echo $lastnameErr;?></span>
+      <span><?php echo $emailErr;?></span>
+      <span><?php echo $passordErr;?></span>
+      <span><?php echo $confirmPasswordErr;?></span>
+      <span><?php echo $rsaidErr;?></span>
     </div>
     <!--registrationForm-->
   </div>
