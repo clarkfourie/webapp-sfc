@@ -45,6 +45,7 @@
     </div>
     <!--loginheader-->
     <div class="registrationForm">
+
       <form id="register" action="php/insert.php" method="post">
         <p>
           <input type="text" id="firstname" name="firstname" placeholder="First Name" value="" class="radius mini" />
@@ -65,8 +66,8 @@
         <p>
           <button class="radius title" name="submit">Sign Up for SFC</button>
         </p>
-      </form>
-    </div>
+
+</div>
     <div id="errorContainer">
       <p> Please address the issues above and try again </p>
       <span><?php echo $firstnameErr;?></span>
@@ -75,7 +76,11 @@
       <span><?php echo $passordErr;?></span>
       <span><?php echo $confirmPasswordErr;?></span>
       <span><?php echo $rsaidErr;?></span>
+      <ul/>
     </div>
+        
+      </form>
+
     <!--registrationForm-->
   </div>
   <!--loginboxinner-->
