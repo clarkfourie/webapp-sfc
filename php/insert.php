@@ -61,12 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["rsaid"])) {
     $rsaidErr = "RSA ID number is required";
   } else {
-    $rsaid = mysqli_real_escape_string($_POST["rsaid"]);
+    $rsaid = mysqli_real_escape_string($link, $_POST["rsaid"]);
   }
 
 }
- 
-/*
+
+echo $firstname . " : " . $firstnameErr;
+
 
 // Attempt insert query execution
 // Purposefully leave out id as it is set to AUTO_INCREMENT in the db
@@ -81,6 +82,6 @@ if(mysqli_query($link, $sql)) {
 // Close connection
 mysqli_close($link);
 
-*/
+
 
 ?>
