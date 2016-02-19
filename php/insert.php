@@ -9,7 +9,7 @@ function isValidEmail($email) {
         && preg_match('/@.+\./', $email);
 }
 
-$firstnameErr = $lastnameErr = $emailErr = $passwordErr = $confirmPasswordErr = $rsaidErr = "";
+$firstnameErr = $lastnameErr = $emailErr = $passwordErr = $rsaidErr = "";
 $firstname = $lastname = $email = $password = $confirmPassword = $rsaid = "";
 
 
@@ -21,14 +21,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstnameErr = "First name is required";
   } else {
     $firstname = mysqli_real_escape_string($link, $_POST['firstname']);
-    $firstnameErr = "";
+    $firstnameErr = "OK";
   }
 
   if (empty($_POST["lastname"])) {
     $lastnameErr = "Last name is required";
   } else {
     $lastname = mysqli_real_escape_string($link, $_POST['lastname']);
-    $lastnameErr = "";
+    $lastnameErr = "OK";
   }
 
   if (empty($_POST["email"])) {
@@ -38,42 +38,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $emailErr = "Email address is invalid";
     } else {
       $email = mysqli_real_escape_string($link, $_POST['email']);
-      $emailErr = "";
+      $emailErr = "OK";
     }
   }
 
-  if(!empty($_POST["password"]) && ($_POST["password"] == $_POST["confirmPassword"])) {
+  if (empty($_POST["password"])) {
+    $passwordErr = "Please complete the password field";
+  } elseif (!empty($_POST["password"]) && $_POST["password"] != $_POST["confirmPassword"]) {
+    $passwordErr = "Passwords do not match!";
+  } else { // Only possible option left is completed matching fields...
+    if (strlen($_POST["password"]) < '6') {
+      $passwordErr = "Your Password Must Contain At Least 6 Characters!";
+    } elseif (!preg_match("#[0-9]+#", $_POST["password"])) {
+      $passwordErr = "Your Password Must Contain At Least 1 Number!";
+    } elseif (!preg_match("#[A-Z]+#", $_POST["password"])) {
+      $passwordErr = "Your Password Must Contain At Least 1 Capital Letter!";
+    } elseif (!preg_match("#[a-z]+#", $_POST["password"])) {
+      $passwordErr = "Your Password Must Contain At Least 1 Lowercase Letter!";
+    } else {
+      $password = mysqli_real_escape_string($link, $_POST["password"]);
+      $confirmPassword = mysqli_real_escape_string($link, $_POST["confirmPassword"]);
 
-    if(!preg_match("#[0-9]+#", $_POST["password"])) {
-        $passwordErr = "Your Password Must Contain At Least 1 Number!";
+      $passwordErr = "OK";
     }
-    elseif(!preg_match("#[A-Z]+#", $_POST["password"])) {
-        $passwordErr = "Your Password Must Contain At Least 1 Capital Letter!";
-    }
-    elseif(!preg_match("#[a-z]+#", $_POST["password"])) {
-        $passwordErr = "Your Password Must Contain At Least 1 Lowercase Letter!";
-    }
-
-    $password = mysqli_real_escape_string($link, $_POST['password']);
-    $confirmPassword = mysqli_real_escape_string($link, $_POST['confirmPassword']);
-
-    $passwordErr = $cpasswordErr = "";
   }
-  elseif($password == "") {
-    $cpasswordErr = "Please Check You've Entered Your Password and Password Confirmation!";
-  } 
 
   if (empty($_POST["rsaid"])) {
     $rsaidErr = "RSA ID number is required";
+  } elseif (!preg_match("/^([0-9]){2}([0-1][0-9])([0-3][0-9])([0-9]){4}([0-1])([0-9]){2}?$/", $_POST["rsaid"])) {
+    $rsaidErr = "RSA ID number is invalid.";
   } else {
     $rsaid = mysqli_real_escape_string($link, $_POST["rsaid"]);
-    $rsaidErr = "";
+    $rsaidErr = "OK";
   }
 
-}
+} // POST
 
 // If there are no errors continue with insertion into the users table
-if (($firstnameErr == "") && ($lastnameErr == "" ) && ($emailErr == "" ) && ($passwordErr == "" ) && ($confirmPasswordErr == "" ) && ($rsaidErr == "" )) {
+if (($firstnameErr == "OK") && ($lastnameErr == "OK" ) && ($emailErr == "OK" ) && ($passwordErr == "OK" ) && ($rsaidErr == "OK" )) {
 
   // Attempt insert query execution
   // Purposefully leave out id as it is set to AUTO_INCREMENT in the db
@@ -90,7 +92,7 @@ if (($firstnameErr == "") && ($lastnameErr == "" ) && ($emailErr == "" ) && ($pa
 
 }
 else { // Display errors 
-  echo $firstnameErr . "<br>" . $lastnameErr . "<br>" . $emailErr . "<br>" . $passwordErr . "<br>" . $confirmPasswordErr . "<br>" . $rsaidErr;
+  echo $firstnameErr . "<br>" . $lastnameErr . "<br>" . $emailErr . "<br>" . $passwordErr . "<br>" . $rsaidErr;
 }
  
 ?>
