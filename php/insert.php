@@ -14,19 +14,21 @@ $firstname = $lastname = $email = $password = $confirmPassword = $rsaid = "";
 
 
 // jQuery performs validation on the front end but it is a security risk and JS can be switched off.
-// Escape user inputs for security
+// Escape user inputs for XSS security
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["firstname"])) {
     $firstnameErr = "First name is required";
   } else {
     $firstname = mysqli_real_escape_string($link, $_POST['firstname']);
+    $firstnameErr = "";
   }
 
   if (empty($_POST["lastname"])) {
     $lastnameErr = "Last name is required";
   } else {
     $lastname = mysqli_real_escape_string($link, $_POST['lastname']);
+    $lastnameErr = "";
   }
 
   if (empty($_POST["email"])) {
@@ -36,52 +38,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $emailErr = "Email address is invalid";
     } else {
       $email = mysqli_real_escape_string($link, $_POST['email']);
+      $emailErr = "";
     }
   }
 
   if(!empty($_POST["password"]) && ($_POST["password"] == $_POST["confirmPassword"])) {
 
+    if(!preg_match("#[0-9]+#", $_POST["password"])) {
+        $passwordErr = "Your Password Must Contain At Least 1 Number!";
+    }
+    elseif(!preg_match("#[A-Z]+#", $_POST["password"])) {
+        $passwordErr = "Your Password Must Contain At Least 1 Capital Letter!";
+    }
+    elseif(!preg_match("#[a-z]+#", $_POST["password"])) {
+        $passwordErr = "Your Password Must Contain At Least 1 Lowercase Letter!";
+    }
+
     $password = mysqli_real_escape_string($link, $_POST['password']);
     $confirmPassword = mysqli_real_escape_string($link, $_POST['confirmPassword']);
 
-    if(!preg_match("#[0-9]+#", $password)) {
-        $passwordErr = "Your Password Must Contain At Least 1 Number!";
-    }
-    elseif(!preg_match("#[A-Z]+#", $password)) {
-        $passwordErr = "Your Password Must Contain At Least 1 Capital Letter!";
-    }
-    elseif(!preg_match("#[a-z]+#", $password)) {
-        $passwordErr = "Your Password Must Contain At Least 1 Lowercase Letter!";
-    }
+    $passwordErr = $cpasswordErr = "";
   }
-  elseif(!empty($password)) {
-    $cpasswordErr = "Please Check You've Entered Or Confirmed Your Password!";
-  }
+  elseif($password == "") {
+    $cpasswordErr = "Please Check You've Entered Your Password and Password Confirmation!";
+  } 
 
   if (empty($_POST["rsaid"])) {
     $rsaidErr = "RSA ID number is required";
   } else {
     $rsaid = mysqli_real_escape_string($link, $_POST["rsaid"]);
+    $rsaidErr = "";
   }
 
 }
 
-echo $firstname . " : " . $firstnameErr;
+// If there are no errors continue with insertion into the users table
+if (($firstnameErr == "") && ($lastnameErr == "" ) && ($emailErr == "" ) && ($passwordErr == "" ) && ($confirmPasswordErr == "" ) && ($rsaidErr == "" )) {
 
+  // Attempt insert query execution
+  // Purposefully leave out id as it is set to AUTO_INCREMENT in the db
+  $sql = "INSERT INTO users (firstname, lastname, email, password, confirmPassword, rsaid) VALUES ('$firstname', '$lastname', '$email', md5('$password'), md5('$confirmPassword'), '$rsaid')";
 
-// Attempt insert query execution
-// Purposefully leave out id as it is set to AUTO_INCREMENT in the db
-$sql = "INSERT INTO users (firstname, lastname, email, password, confirmPassword, rsaid) VALUES ('$firstname', '$lastname', '$email', md5('$password'), md5('$confirmPassword'), '$rsaid')";
+  if(mysqli_query($link, $sql)) {
+      echo "Records added successfully.";
+  } else {
+      echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+  }
+   
+  // Close connection
+  mysqli_close($link);
 
-if(mysqli_query($link, $sql)) {
-    echo "Records added successfully.";
-} else {
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+else { // Display errors 
+  echo $firstnameErr . "<br>" . $lastnameErr . "<br>" . $emailErr . "<br>" . $passwordErr . "<br>" . $confirmPasswordErr . "<br>" . $rsaidErr;
 }
  
-// Close connection
-mysqli_close($link);
-
-
-
 ?>
