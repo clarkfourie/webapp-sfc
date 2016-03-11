@@ -3,15 +3,14 @@
 // Include site constants
 include_once "base.php";
 
-// email validation function
+// form specific validation function
 function isValidEmail($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL) 
         && preg_match('/@.+\./', $email);
 }
 
-$firstnameErr = $lastnameErr = $emailErr = $passwordErr = $rsaidErr = "";
+$firstnameErr = $lastnameErr = $emailErr = $passwordErr = $rsaidErr = $confirmErr = "";
 $firstname = $lastname = $email = $password = $confirmPassword = $rsaid = "";
-
 
 // jQuery performs validation on the front end but it is a security risk and JS can be switched off.
 // Escape user inputs for XSS security
@@ -46,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $passwordErr = "Please complete the password field";
   } elseif (!empty($_POST["password"]) && $_POST["password"] != $_POST["confirmPassword"]) {
     $passwordErr = "Passwords do not match!";
-  } else { // Only possible option left is completed matching fields...
+  } else {
     if (strlen($_POST["password"]) < '6') {
       $passwordErr = "Your Password Must Contain At Least 6 Characters!";
     } elseif (!preg_match("#[0-9]+#", $_POST["password"])) {
@@ -58,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       $password = mysqli_real_escape_string($link, $_POST["password"]);
       $confirmPassword = mysqli_real_escape_string($link, $_POST["confirmPassword"]);
-
       $passwordErr = "OK";
     }
   }
@@ -77,14 +75,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // If there are no errors continue with insertion into the users table
 if (($firstnameErr == "OK") && ($lastnameErr == "OK" ) && ($emailErr == "OK" ) && ($passwordErr == "OK" ) && ($rsaidErr == "OK" )) {
 
-  // Attempt insert query execution
+  // insert into user table sql string
   // Purposefully leave out id as it is set to AUTO_INCREMENT in the db
   $sql = "INSERT INTO users (firstname, lastname, email, password, confirmPassword, rsaid) VALUES ('$firstname', '$lastname', '$email', md5('$password'), md5('$confirmPassword'), '$rsaid')";
 
-  if(mysqli_query($link, $sql)) {
-      echo "Records added successfully.";
+  if(mysqli_query($link, $sql)) { // users insert successful
+    echo "Records added successfully.";
+
+    $to = $email;
+    $subject = 'SFC user confirmation';
+    $message = 'Dear ' . $firstname . '\n\nWelcome to SFC!' ; 
+    $headers = 'From: munged@gmail.com';
+     
+    // Sending email
+    if(mail($to,$subject,$message,$headers,"-f your@email.here")){
+        echo 'Your mail has been sent successfully.';
+    } else{
+        echo 'Unable to send email. Please try again.';
+    }
+
   } else {
-      echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+    echo 'User could not be added to the database. Reason: ' . mysqli_error($link);
   }
    
   // Close connection
