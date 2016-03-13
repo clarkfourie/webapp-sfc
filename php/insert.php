@@ -84,12 +84,21 @@ if (($firstnameErr == "OK") && ($lastnameErr == "OK" ) && ($emailErr == "OK" ) &
 
     $to = $email;
     $subject = 'SFC user confirmation';
-    $message = 'Dear ' . $firstname . '\n\nWelcome to SFC!' ; 
-    $headers = 'From: munged@gmail.com';
+    
+    $message = 'Dear ' . $firstname;
+    $message .= '. Welcome to SFC!'; 
+
+    $headers = 'From: welcom@sfc.com';
      
     // Sending email
-    if(mail($to,$subject,$message,$headers,"-f your@email.here")){
+    if(mail($to,$subject,$message,$headers)){
         echo 'Your mail has been sent successfully.';
+
+        // load new html document
+        $doc = new DOMDocument();
+        $doc->loadHTMLFile("C:/xampp/htdocs/sfc/html/main.html");
+        echo $doc->saveHTML();
+
     } else{
         echo 'Unable to send email. Please try again.';
     }
