@@ -94,7 +94,7 @@ if (($firstnameErr == "OK") && ($lastnameErr == "OK" ) && ($emailErr == "OK" ) &
     if(mail($to,$subject,$message,$headers)){
         echo 'Your mail has been sent successfully.';
 
-        // load new html document
+        // load main.html
         $doc = new DOMDocument();
         $doc->loadHTMLFile("C:/xampp/htdocs/sfc/html/main.html");
         echo $doc->saveHTML();

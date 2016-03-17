@@ -1,0 +1,96 @@
+
+div.block1 {
+    width: 310px;
+    height: 230px;
+    float: left;
+    border:1px solid red;
+    text-align: center;
+    position: relative;
+    background: url(http://dummyimage.com/310x230) no-repeat top center;
+
+}
+
+div.block1 div {
+    width: 250px;
+    height: 100px;
+    padding: 0;
+    display: none; 
+    position: absolute;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border:1px solid red;
+    bottom: 14px;
+    left:30px;
+}
+
+div.block2 {
+    width: 310px;
+    height: 230px;
+    float: left;
+    border:1px solid red;
+    text-align: center;
+    position: relative;
+    background: url(http://dummyimage.com/310x230) no-repeat top center;
+
+}
+
+div.block2 div {
+    width: 250px;
+    height: 100px;
+    padding: 0;
+    display: none; 
+    position: absolute;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border:1px solid red;
+    bottom: 14px;
+    left:30px;
+}
+
+div.block3 {
+    width: 310px;
+    height: 230px;
+    float: left;
+    border:1px solid red;
+    text-align: center;
+    position: relative;
+    background: url(http://dummyimage.com/310x230) no-repeat top center;
+
+}
+
+div.block3 div {
+    width: 250px;
+    height: 100px;
+    padding: 0;
+    display: none; 
+    position: absolute;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border:1px solid red;
+    bottom: 14px;
+    left:30px;
+}
+
+div.block4 {
+    width: 310px;
+    height: 230px;
+    float: left;
+    border:1px solid red;
+    text-align: center;
+    position: relative;
+    background: url(http://dummyimage.com/310x230) no-repeat top center;
+
+}
+
+div.block4 div {
+    width: 250px;
+    height: 100px;
+    padding: 0;
+    display: none; 
+    position: absolute;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border:1px solid red;
+    bottom: 14px;
+    left:30px;
+}

@@ -9,7 +9,6 @@
 //         alert("Doesn't Work");
 //     }
 // }
-
  
 // Custom jQuery validation methods
 // jQuery.validator.addMethod("exactlength", function(value, element, param) {
