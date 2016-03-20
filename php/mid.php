@@ -3,8 +3,6 @@ session_start();
 
 // print_r($_SESSION);
 
-$_SESSION["sess_user"];
-
 if(!isset($_SESSION["sess_user"])){
 	header("location: index.php");
 } else {

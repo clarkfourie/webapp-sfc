@@ -84,9 +84,10 @@ $().ready(function () {
       }
     },
 
-    errorContainer: $('#errorContainer'),
-    errorLabelContainer: $('#errorContainer ul'),
-    wrapper: 'li'
+    // uncomment to put validation messages in a box - must fix css as well.
+    // errorContainer: $('#errorContainer'),
+    // errorLabelContainer: $('#errorContainer ul'),
+    // wrapper: 'li'
 
   });
 

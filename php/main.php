@@ -11,7 +11,7 @@ session_start();
 </head>
 <body>
 
-	<h2>Welcome, <?$_SESSION['sess_user'];?>! <a href="logout.php">Logout</a></h2>
+	<h2>Welcome, <?=$_SESSION['sess_user'];?>! <a href="logout.php">Logout</a></h2>
 
 	<div id="imgContainer">
 

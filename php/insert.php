@@ -122,8 +122,7 @@ if (($firstnameErr == "OK") && ($lastnameErr == "OK") && ($emailErr == "OK") && 
   }
    
   // Close connection
-  //mysqli_close($link);
-  // sessions managed by login
+  mysqli_close($link);
 
 }
 else { // Display errors 

@@ -44,8 +44,10 @@ if (($loginEmailErr == "OK") && ($loginPasswdErr == "OK")) {
 		session_start();
 		$_SESSION['sess_user'] = $dbName;
 
+		//echo $dbName;
+
 		/* Redirect browser */
-		header("Location: main.php");
+		header("Location: mid.php");
 
 	} else {
 		echo "The user name and password does not exist";

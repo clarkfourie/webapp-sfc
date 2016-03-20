@@ -11,6 +11,7 @@
 // }
 
 $().ready(function(){
+  "use strict";
 
     $(".block1").hover(function(){
         $(this).find("div.snipit").slideDown("slow");
