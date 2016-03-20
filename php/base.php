@@ -13,7 +13,8 @@
     ini_set("display_errors", 1);
  
     // Start a PHP session
-    session_start();
+    //session_start();
+    // Session to be started on login
  
     // Include site constants
     include_once "constants.ini.php";

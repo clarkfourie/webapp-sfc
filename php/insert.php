@@ -4,20 +4,23 @@
 include_once "base.php";
 
 // form specific validation function
-function isValidEmail($email) {
-    return filter_var($email, FILTER_VALIDATE_EMAIL) 
-        && preg_match('/@.+\./', $email);
+function isValidEmail($_email) {
+    return filter_var($_email, FILTER_VALIDATE_EMAIL) 
+        && preg_match('/@.+\./', $_email);
 }
 
+// Variable to contain posts from html and errors
 $firstnameErr = $lastnameErr = $emailErr = $passwordErr = $rsaidErr = $confirmErr = "";
 $firstname = $lastname = $email = $password = $confirmPassword = $rsaid = "";
 
-// jQuery performs validation on the front end but it is a security risk and JS can be switched off.
+// jQuery performs validation on the front end but it is a security risk if JS is switched off.
 // Escape user inputs for XSS security
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST["submit"])) {
 
   if (empty($_POST["firstname"])) {
     $firstnameErr = "First name is required";
+  } else if (strlen($_POST["firstname"]) > 40) {
+    $firstnameErr = "First name cannot be more than 40 characters.";
   } else {
     $firstname = mysqli_real_escape_string($link, $_POST['firstname']);
     $firstnameErr = "OK";
@@ -25,6 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["lastname"])) {
     $lastnameErr = "Last name is required";
+  } else if (strlen($_POST["lastname"]) > 40){
+    $lastnameErr = "Last name cannot contain more than 40 characters.";
   } else {
     $lastname = mysqli_real_escape_string($link, $_POST['lastname']);
     $lastnameErr = "OK";
@@ -32,27 +37,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["email"])) {
     $emailErr = "Email address is required";
+  } else if (!isValidEmail($_POST["email"])) {
+    $emailErr = "Email address is invalid";
+  } else if (strlen($_POST["email"]) > 64) {
+    $emailErr = "Email cannot contain more than 64 characters";
   } else {
-    if (!isValidEmail($_POST["email"])) {
-      $emailErr = "Email address is invalid";
-    } else {
-      $email = mysqli_real_escape_string($link, $_POST['email']);
-      $emailErr = "OK";
-    }
+    $email = mysqli_real_escape_string($link, $_POST['email']);
+    $emailErr = "OK";
   }
 
   if (empty($_POST["password"])) {
     $passwordErr = "Please complete the password field";
-  } elseif (!empty($_POST["password"]) && $_POST["password"] != $_POST["confirmPassword"]) {
+  } else if (!empty($_POST["password"]) && $_POST["password"] != $_POST["confirmPassword"]) {
     $passwordErr = "Passwords do not match!";
   } else {
-    if (strlen($_POST["password"]) < '6') {
+    if (strlen($_POST["password"]) < 6) {
       $passwordErr = "Your Password Must Contain At Least 6 Characters!";
-    } elseif (!preg_match("#[0-9]+#", $_POST["password"])) {
+    } else if (strlen($_POST["password"]) > 32) {
+      $passwordErr = "Your Password cannot contain more than 32 characters.";
+    } else if (!preg_match("#[0-9]+#", $_POST["password"])) {
       $passwordErr = "Your Password Must Contain At Least 1 Number!";
-    } elseif (!preg_match("#[A-Z]+#", $_POST["password"])) {
+    } else if (!preg_match("#[A-Z]+#", $_POST["password"])) {
       $passwordErr = "Your Password Must Contain At Least 1 Capital Letter!";
-    } elseif (!preg_match("#[a-z]+#", $_POST["password"])) {
+    } else if (!preg_match("#[a-z]+#", $_POST["password"])) {
       $passwordErr = "Your Password Must Contain At Least 1 Lowercase Letter!";
     } else {
       $password = mysqli_real_escape_string($link, $_POST["password"]);
@@ -63,52 +70,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["rsaid"])) {
     $rsaidErr = "RSA ID number is required";
-  } elseif (!preg_match("/^([0-9]){2}([0-1][0-9])([0-3][0-9])([0-9]){4}([0-1])([0-9]){2}?$/", $_POST["rsaid"])) {
+  } else if (!preg_match("/^([0-9]){2}([0-1][0-9])([0-3][0-9])([0-9]){4}([0-1])([0-9]){2}?$/", $_POST["rsaid"])) {
     $rsaidErr = "RSA ID number is invalid.";
   } else {
     $rsaid = mysqli_real_escape_string($link, $_POST["rsaid"]);
     $rsaidErr = "OK";
   }
 
-} // POST
+} // POST end
 
 // If there are no errors continue with insertion into the users table
-if (($firstnameErr == "OK") && ($lastnameErr == "OK" ) && ($emailErr == "OK" ) && ($passwordErr == "OK" ) && ($rsaidErr == "OK" )) {
+if (($firstnameErr == "OK") && ($lastnameErr == "OK") && ($emailErr == "OK") && ($passwordErr == "OK") && ($rsaidErr == "OK")) {
 
-  // insert into user table sql string
-  // Purposefully leave out id as it is set to AUTO_INCREMENT in the db
-  $sql = "INSERT INTO users (firstname, lastname, email, password, confirmPassword, rsaid) VALUES ('$firstname', '$lastname', '$email', md5('$password'), md5('$confirmPassword'), '$rsaid')";
-
-  if(mysqli_query($link, $sql)) { // users insert successful
-    echo "Records added successfully.";
-
-    $to = $email;
-    $subject = 'SFC user confirmation';
-    
-    $message = 'Dear ' . $firstname;
-    $message .= '. Welcome to SFC!'; 
-
-    $headers = 'From: welcom@sfc.com';
-     
-    // Sending email
-    if(mail($to,$subject,$message,$headers)){
-        echo 'Your mail has been sent successfully.';
-
-        // load main.html
-        $doc = new DOMDocument();
-        $doc->loadHTMLFile("C:/xampp/htdocs/sfc/html/main.html");
-        echo $doc->saveHTML();
-
-    } else{
-        echo 'Unable to send email. Please try again.';
-    }
-
+  // Is the email provided unique?
+  $sql = "SELECT * FROM users WHERE email='$email'";
+  $checkEmail = mysqli_query($link, $sql);
+  if(mysqli_num_rows($checkEmail) > 0) {
+      echo "This email already exists in the database";
   } else {
-    echo 'User could not be added to the database. Reason: ' . mysqli_error($link);
+    // Insert into user table sql string
+    // Purposefully leave out id as it is set to AUTO_INCREMENT in the db
+    $sql = "INSERT INTO users (firstname, lastname, email, password, confirmPassword, rsaid) VALUES ('$firstname', '$lastname', '$email', md5('$password'), md5('$confirmPassword'), '$rsaid')";
+
+    if (mysqli_query($link, $sql)) { // users insert successful
+      echo "Records added successfully.";
+
+      $to = $email;
+      $subject = 'SFC user confirmation';
+      
+      $message = 'Dear ' . $firstname;
+      $message .= '. Welcome to SFC!'; 
+
+      $headers = 'From: welcom@sfc.com';
+       
+      // Sending email
+      if (mail($to,$subject,$message,$headers)) {
+          echo 'Your mail has been sent successfully.';
+
+          // load main.html
+          $doc = new DOMDocument();
+          $doc->loadHTMLFile("C:/xampp/htdocs/sfc/html/main.html");
+          echo $doc->saveHTML();
+
+      } else {
+          echo 'Unable to send email. Please try again.';
+      }
+
+    } else {
+      echo 'User could not be added to the database. Reason: ' . mysqli_error($link);
+    }
   }
    
   // Close connection
-  mysqli_close($link);
+  //mysqli_close($link);
+  // sessions managed by login
 
 }
 else { // Display errors 

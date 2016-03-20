@@ -20,6 +20,8 @@
 
 $().ready(function () {
   "use strict";
+
+  // Registration form validation
   $('#register').validate({
 
     rules: {
@@ -87,4 +89,32 @@ $().ready(function () {
     wrapper: 'li'
 
   });
+
+  // Login form validation
+  $('#login_form').validate({
+
+    rules: {
+      loginEmail: {
+        required: true,
+        maxlength: 64
+      },
+      loginPasswd: {
+        required: true,
+        maxlength: 32
+      }
+    },
+
+    messages: {
+      loginEmail: {
+        required: "Please enter your email.",
+        maxlength: "Your email address cannot exceed 64 characters."
+      },
+      loginPasswd: {
+        required: "Please enter your password.",
+        maxlength: "Your password cannot exceed 32 characters."
+      }
+    }
+
+  });
+
 });

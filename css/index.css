@@ -8,9 +8,11 @@ fieldset, form, label, legend {
     margin: 0;
     padding: 0;
     vertical-align: baseline;
-     font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
+    font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
+    list-style-type: none; /*makes unordered lists bullets invisible*/
+
 }
-body.login { background: url(bg.jpg); }
+
 h2 { font-size: 30px; line-height:38px; font-weight:normal; }
 .loginbox { background: #FBFCFD; padding: 10px; width: 490px; margin: 4% auto 0 auto; position: relative; }
 .loginboxinner {
@@ -120,10 +122,10 @@ h2 { font-size: 30px; line-height:38px; font-weight:normal; }
     text-align: left;
     vertical-align: middle;
 }
-.fbbutton { border:1px solid #1D3871; width:94px; background-image:-webkit-linear-gradient(top, #340099, #6449b0); font-size:14px; line-height:25px; font-weight:normal; color:#fff; font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif; }
+.fbbutton { border:1px solid #1D3871; width:94px; height:30px; background-image:-webkit-linear-gradient(top, #340099, #6449b0); font-size:14px; line-height:25px; font-weight:normal; color:#fff; font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif; }
 
 /* jQuery validation style */ 
-#errorContainer {
+.errorContainer {
     display: none;
     overflow: auto;
     background-color: #FFDDDD;
@@ -131,7 +133,7 @@ h2 { font-size: 30px; line-height:38px; font-weight:normal; }
     padding-top: 1;
 }
 
-#errorContainer label {
+.errorContainer label {
    float: none;
    width: auto;
 }
