@@ -1,9 +1,6 @@
 <?php
 session_start();
 
-if(isset($_SESSION['sess_user'])) {
-  header("Location: main.php");
-} else {
 ?>
 
 <!DOCTYPE html>
@@ -12,20 +9,20 @@ if(isset($_SESSION['sess_user'])) {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Spoilt for Choice</title>
-<link rel="stylesheet" href="css/index.css" type="text/css" />
+<link rel="stylesheet" href="../css/index.css" type="text/css" />
 <!-- hotlinking jQuery and jQuery validation plugin -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
-<script src="js/validation.js"></script>
+<script src="../js/validation.js"></script>
 </head>
 <body class="login">
 <!-- header starts here -->
 <div id="facebook-Bar">
   <div id="facebook-Frame">
-    <div id="logo"> <img src="img\logo\sfc small.png" alt="logo img"> </div>
+    <div id="logo"> <img src="..\img\logo\sfc small.png" alt="logo img"> </div>
     <div id="header-main-right">
       <div id="header-main-right-nav">
-        <form   id="login_form" action="php\login.php" method="post">
+        <form   id="login_form" action="..\php\login.php" method="post">
           <div>
             <table border="0" style="border:none">
               <tr>
@@ -103,7 +100,4 @@ if(isset($_SESSION['sess_user'])) {
 </body>
 </html>
 
-<?php
-}
-?>
 

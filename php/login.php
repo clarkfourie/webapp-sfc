@@ -3,12 +3,6 @@
 // Include site constants
 include_once "base.php";
 
-session_start();
-
-if(isset($_SESSION['sess_user'])) {
-  header("Location: main.php");
-} else {
-
 $loginEmail = $loginPasswd = "";
 $loginEmailErr = $loginPasswdErr = "";
 
@@ -36,8 +30,6 @@ if (empty($_POST["loginPasswd"])) {
 
 if (($loginEmailErr == "OK") && ($loginPasswdErr == "OK")) {
 
-	echo $loginEmail . "<br/>" . md5($loginPasswd);
-
 	// Are the credentials listed in the db?
 	$sql = "SELECT * FROM users WHERE email = '" . $loginEmail . "' AND password ='" . md5($loginPasswd) . "'"; 
 	$query = mysqli_query($link, $sql);
@@ -61,8 +53,6 @@ if (($loginEmailErr == "OK") && ($loginPasswdErr == "OK")) {
 
 } else {
 	echo $loginEmailErr . "<br>" . $loginPasswdErr;
-}
-
 }
 
 ?>

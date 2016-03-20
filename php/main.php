@@ -1,12 +1,7 @@
 <?php
 session_start();
-
-print_r($_SESSION);
-
-if(!isset($_SESSION["sess_user"])){
-	header("location:login.php");
-} else {
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +10,8 @@ if(!isset($_SESSION["sess_user"])){
 	<script src="../js/main.js"></script>
 </head>
 <body>
+
+	<h2>Welcome, <?$_SESSION['sess_user'];?>! <a href="logout.php">Logout</a></h2>
 
 	<div id="imgContainer">
 
@@ -76,6 +73,4 @@ if(!isset($_SESSION["sess_user"])){
 </body>
 </html>
 
-<?php
-}
-?>
+
