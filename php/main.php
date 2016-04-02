@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+$rand = mt_rand(1,10);
+
 ?>
 
 <!DOCTYPE html>
@@ -13,11 +16,13 @@ session_start();
 
 	<h2>Welcome, <?=$_SESSION['sess_user'];?>! <a href="logout.php">Logout</a></h2>
 
+	<p>random: <?php echo $rand; ?></p>
+
 	<div id="imgContainer">
 
 		<table name="imgTable" align="center">
 			<tr>
-				<p align="center">Which bank is the best?</p>
+				<p align="center">Static question?</p>
 			</tr>
 			<tr>
 			  	<td>
@@ -72,5 +77,3 @@ session_start();
 
 </body>
 </html>
-
-

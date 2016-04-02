@@ -1,8 +1,5 @@
 <?php
 session_start();
-
-// mid will check if there is an existing session
-header("location: mid.php");
 ?>
 
 <!DOCTYPE html>
