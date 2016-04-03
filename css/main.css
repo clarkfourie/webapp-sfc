@@ -1,12 +1,12 @@
 
 div.block1 {
-    width: 310px;
-    height: 230px;
+    width: 300px;
+    height: 300px;
     float: left;
     border:1px solid red;
     text-align: center;
     position: relative;
-    background: url(http://dummyimage.com/310x230) no-repeat top center;
+    /*background: url(http://dummyimage.com/310x230) no-repeat top center;*/
 
 }
 
@@ -24,13 +24,13 @@ div.block1 div {
 }
 
 div.block2 {
-    width: 310px;
-    height: 230px;
+    width: 300px;
+    height: 300px;
     float: left;
     border:1px solid red;
     text-align: center;
     position: relative;
-    background: url(http://dummyimage.com/310x230) no-repeat top center;
+    /*background: url(http://dummyimage.com/310x230) no-repeat top center;*/
 
 }
 
@@ -48,13 +48,13 @@ div.block2 div {
 }
 
 div.block3 {
-    width: 310px;
-    height: 230px;
+    width: 300px;
+    height: 300px;
     float: left;
     border:1px solid red;
     text-align: center;
     position: relative;
-    background: url(http://dummyimage.com/310x230) no-repeat top center;
+    /*background: url(http://dummyimage.com/310x230) no-repeat top center;*/
 
 }
 
@@ -72,13 +72,13 @@ div.block3 div {
 }
 
 div.block4 {
-    width: 310px;
-    height: 230px;
+    width: 300px;
+    height: 300px;
     float: left;
     border:1px solid red;
     text-align: center;
     position: relative;
-    background: url(http://dummyimage.com/310x230) no-repeat top center;
+    /*background: url(http://dummyimage.com/310x230) no-repeat top center;*/
 
 }
 

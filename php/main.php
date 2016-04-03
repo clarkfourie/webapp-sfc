@@ -1,7 +1,43 @@
 <?php
 session_start();
 
-$rand = mt_rand(1,10);
+// Include site constants and $link to database
+include_once "base.php";
+
+$rand = 1; /*mt_rand(1,10);*/
+
+$dbQuestion = "";
+$dbAns1 = $dbAns2 = $dbAns3 = $dbAns4 = "";
+$dbSponsor1 = $dbSponsor2 = $dbSponsor3 = $dbSponsor4 = "";
+$dbImg1 = $dbImg2 = $dbImg3 = $dbImg4 = "";
+
+// Is the email provided unique?
+$sql = "SELECT * FROM questions WHERE questid='" . $rand . "'";
+$query = mysqli_query($link, $sql);
+if(mysqli_num_rows($query) != 0) {
+	
+	while ($row = mysqli_fetch_assoc($query)) {
+
+		$dbQuestion = $row['question'];
+
+		$dbAns1 = $row['ans1'];
+		$dbAns2 = $row['ans2'];
+		$dbAns3 = $row['ans3'];
+		$dbAns4 = $row['ans4'];
+
+		$dbSponsor1 = $row['sponsor1'];
+		$dbSponsor2 = $row['sponsor2'];
+		$dbSponsor3 = $row['sponsor3'];
+		$dbSponsor4 = $row['sponsor4'];
+
+		$dbImg1 = $row['img1'];
+		$dbImg2 = $row['img2'];
+		$dbImg3 = $row['img3'];
+		$dbImg4 = $row['img4'];
+	}
+} else {
+	echo "This question does not exist!";
+}
 
 ?>
 
@@ -22,15 +58,15 @@ $rand = mt_rand(1,10);
 
 		<table name="imgTable" align="center">
 			<tr>
-				<p align="center">Static question?</p>
+				<p align="center"><?php echo $dbQuestion; ?></p>
 			</tr>
 			<tr>
 			  	<td>
 		    	<div class="block1">
-				    <!-- <img src="..\img\client\absa.png" alt="img11" width="300" height="300"> -->
+				    <img src="..\img\client\absa.png" alt="img11" width="300" height="300">
 					    <div class="snipit">
-					         <h4>ABSA</h4>
-					         <p>This is absa.</p>
+					         <h4><?php echo $dbSponsor1; ?></h4>
+					         <p><?php echo $dbAns1; ?></p>
 					    </div>
 					</div>
 
@@ -40,8 +76,8 @@ $rand = mt_rand(1,10);
 			    	<div class="block2">
 					    <!-- <img src="..\img\client\fnb.png" alt="img12" width="300" height="300"> -->
 					    <div class="snipit">
-					         <h4>FNB</h4>
-					         <p>This is fnb.</p>
+					         <h4><?php echo $dbSponsor2; ?></h4>
+					         <p><?php echo $dbAns2; ?></p>
 					    </div>
 					</div>
 
@@ -53,8 +89,8 @@ $rand = mt_rand(1,10);
 			    	<div class="block3">
 					    <!-- <img src="..\img\client\standard bank.png" alt="img21" width="300" height="300"> -->
 					    <div class="snipit">
-					         <h4>STANDARD BANK</h4>
-					         <p>This is sb.</p>
+					         <h4><?php echo $dbSponsor3; ?></h4>
+					         <p><?php echo $dbAns3; ?></p>
 					    </div>
 					</div>		    	
 
@@ -64,8 +100,8 @@ $rand = mt_rand(1,10);
 			    	<div class="block4">
 					    <!-- <img src="..\img\client\nedbank.png" alt="img22" width="300" height="300"> -->
 					    <div class="snipit">
-					         <h4>NEDBANK</h4>
-					         <p>This is nb.</p>
+					         <h4><?php echo $dbSponsor4; ?></h4>
+					         <p><?php echo $dbAns4; ?></p>
 					    </div>
 					</div>
 

@@ -1,6 +1,6 @@
 <?php
 
-// Include site constants
+// Include site constants and $link to database
 include_once "base.php";
 
 // form specific validation function
