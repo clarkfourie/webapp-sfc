@@ -11,7 +11,7 @@ $dbAns1 = $dbAns2 = $dbAns3 = $dbAns4 = "";
 $dbSponsor1 = $dbSponsor2 = $dbSponsor3 = $dbSponsor4 = "";
 $dbImg1 = $dbImg2 = $dbImg3 = $dbImg4 = "";
 
-// Is the email provided unique?
+// fetch info from database
 $sql = "SELECT * FROM questions WHERE questid='" . $rand . "'";
 $query = mysqli_query($link, $sql);
 if(mysqli_num_rows($query) != 0) {
@@ -63,7 +63,7 @@ if(mysqli_num_rows($query) != 0) {
 			<tr>
 			  	<td>
 		    	<div class="block1">
-				    <img src="..\img\client\absa.png" alt="img11" width="300" height="300">
+				    <img src="<?php echo $dbImg1?>" alt="check db path" width="300" height="300">
 					    <div class="snipit">
 					         <h4><?php echo $dbSponsor1; ?></h4>
 					         <p><?php echo $dbAns1; ?></p>
@@ -74,7 +74,7 @@ if(mysqli_num_rows($query) != 0) {
 			    <td>
 			    	
 			    	<div class="block2">
-					    <!-- <img src="..\img\client\fnb.png" alt="img12" width="300" height="300"> -->
+					    <img src="<?php echo $dbImg2?>" alt="check db path" width="300" height="300">
 					    <div class="snipit">
 					         <h4><?php echo $dbSponsor2; ?></h4>
 					         <p><?php echo $dbAns2; ?></p>
@@ -87,7 +87,7 @@ if(mysqli_num_rows($query) != 0) {
 			    <td>
 
 			    	<div class="block3">
-					    <!-- <img src="..\img\client\standard bank.png" alt="img21" width="300" height="300"> -->
+					    <img src="<?php echo $dbImg3?>" alt="check db path" width="300" height="300">
 					    <div class="snipit">
 					         <h4><?php echo $dbSponsor3; ?></h4>
 					         <p><?php echo $dbAns3; ?></p>
@@ -98,7 +98,7 @@ if(mysqli_num_rows($query) != 0) {
 				<td>
 
 			    	<div class="block4">
-					    <!-- <img src="..\img\client\nedbank.png" alt="img22" width="300" height="300"> -->
+					    <img src="<?php echo $dbImg4?>" alt="check db path" width="300" height="300">
 					    <div class="snipit">
 					         <h4><?php echo $dbSponsor4; ?></h4>
 					         <p><?php echo $dbAns4; ?></p>
