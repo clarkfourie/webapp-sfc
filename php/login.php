@@ -1,6 +1,6 @@
 <?php
 
-// Include site constants
+// Include site constants and $link to database
 include_once "base.php";
 
 $loginEmail = $loginPasswd = "";
@@ -37,12 +37,15 @@ if (($loginEmailErr == "OK") && ($loginPasswdErr == "OK")) {
 
 		// fetch first name to display in main screen
 		$dbName = "";
+		$dbUid = "";
 		while ($row = mysqli_fetch_assoc($query)) {
 			$dbName = $row['firstname'];
+			$dbUid = $row['uid'];
 		}
 
 		session_start();
 		$_SESSION['sess_user'] = $dbName;
+		$_SESSION['sess_uid'] = $dbUid;
 
 		//echo $dbName;
 
@@ -50,7 +53,7 @@ if (($loginEmailErr == "OK") && ($loginPasswdErr == "OK")) {
 		header("Location: mid.php");
 
 	} else {
-		echo "The user name and password does not exist";
+		echo "The user name and password does not exist, are you sure you registered?";
 	}
 
 } else {

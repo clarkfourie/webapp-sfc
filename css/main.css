@@ -10,7 +10,8 @@ div.block1 {
 
 }
 
-div.block1 div {
+/* original slide over*/
+/*div.block1 div {
     width: 250px;
     height: 100px;
     padding: 0;
@@ -21,6 +22,20 @@ div.block1 div {
     border:1px solid red;
     bottom: 14px;
     left:30px;
+}*/
+
+div.block1 div {
+    width: 280px;
+    height: 280px;
+    padding: 0px;
+    display: none; 
+    position: absolute;
+    bottom: 0px;
+    background-color: #F0F0F0;
+    border:1px solid red;
+    bottom: 10px;
+    left:10px;
+    opacity: 0.8;
 }
 
 div.block2 {
@@ -35,16 +50,16 @@ div.block2 {
 }
 
 div.block2 div {
-    width: 250px;
-    height: 100px;
+    width: 280px;
+    height: 280px;
     padding: 0;
     display: none; 
     position: absolute;
     bottom: 0px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #F0F0F0;
     border:1px solid red;
-    bottom: 14px;
-    left:30px;
+    bottom: 10px;
+    left:10px;
 }
 
 div.block3 {
@@ -59,16 +74,16 @@ div.block3 {
 }
 
 div.block3 div {
-    width: 250px;
-    height: 100px;
+    width: 280px;
+    height: 280px;
     padding: 0;
     display: none; 
     position: absolute;
     bottom: 0px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #F0F0F0;
     border:1px solid red;
-    bottom: 14px;
-    left:30px;
+    bottom: 10px;
+    left:10px;
 }
 
 div.block4 {
@@ -83,14 +98,14 @@ div.block4 {
 }
 
 div.block4 div {
-    width: 250px;
-    height: 100px;
+    width: 280px;
+    height: 280px;
     padding: 0;
     display: none; 
     position: absolute;
     bottom: 0px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #F0F0F0;
     border:1px solid red;
-    bottom: 14px;
-    left:30px;
+    bottom: 10px;
+    left:10px;
 }

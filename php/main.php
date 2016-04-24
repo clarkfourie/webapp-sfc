@@ -4,21 +4,69 @@ session_start();
 // Include site constants and $link to database
 include_once "base.php";
 
-$rand = 1; /*mt_rand(1,10);*/
+$rand = 0;
 
-$dbQuestion = "";
+// Variables to be displayed in html
+$dbQID = "";
 $dbAns1 = $dbAns2 = $dbAns3 = $dbAns4 = "";
 $dbSponsor1 = $dbSponsor2 = $dbSponsor3 = $dbSponsor4 = "";
 $dbImg1 = $dbImg2 = $dbImg3 = $dbImg4 = "";
 
-// fetch info from database
-$sql = "SELECT * FROM questions WHERE questid='" . $rand . "'";
-$query = mysqli_query($link, $sql);
-if(mysqli_num_rows($query) != 0) {
-	
-	while ($row = mysqli_fetch_assoc($query)) {
+// userquestion logic: 
+// Step 1: select a random question from the questions table, if there is not a corresponding question, select again
+// Step 2: query the userquestions table for the current session user to see if this question has already been asked
+// Step 3: if the rows returned are > 0 select a new question else write the uid and the qid to the userquestion table
 
-		$dbQuestion = $row['question'];
+$flag = 1; // Dual purpose: 1) ends looping 2) sets score equal to 0 in UQ table
+
+while ($flag == 1) { // will infinitely loop if a user has all questions listed in his db - FIX!!!
+	$rand = mt_rand(1,3);
+	$sqlSelectQ = "SELECT * FROM questions WHERE questid='" . $rand . "'";
+	$questionQuery = mysqli_query($link, $sqlSelectQ); 
+	if (mysqli_num_rows($questionQuery) != 0) { // $rand id exists in Q table
+		$sqlSelectUQ = "SELECT * FROM userquestion WHERE qid='" . $rand . "'";
+		$userquestionQuery = mysqli_query($link, $sqlSelectUQ);
+		if (mysqli_num_rows($userquestionQuery) == 0) { // Question is not already in UQ table
+			
+			$flag = 0; // prevent further looping
+
+			while ($row = mysqli_fetch_assoc($questionQuery)) { // populate question variables from Q table
+					$dbQID = $row['questid'];
+
+					$dbAns1 = $row['ans1'];
+					$dbAns2 = $row['ans2'];
+					$dbAns3 = $row['ans3'];
+					$dbAns4 = $row['ans4'];
+
+					$dbSponsor1 = $row['sponsor1'];
+					$dbSponsor2 = $row['sponsor2'];
+					$dbSponsor3 = $row['sponsor3'];
+					$dbSponsor4 = $row['sponsor4'];
+
+					$dbImg1 = $row['img1'];
+					$dbImg2 = $row['img2'];
+					$dbImg3 = $row['img3'];
+					$dbImg4 = $row['img4'];
+			}
+
+			// Insert details in to UQ - NB score is set to zero, ammend if questions are correct
+			$sqlInsertUQ = "INSERT INTO userquestion (uid, qid, score) VALUES ('" . $_SESSION['sess_uid'] . "', '" . $dbQID ."', '" . $flag . "' )";
+			$insertQuery = mysqli_query($link, $sqlInsertUQ);
+		} else {
+			echo "question is already in UQ table '" . $rand . "' ";
+		}
+	} else {
+		echo "random number generated with no corresponding Q table value '" . $rand . "'";
+	}
+}
+
+// could be redundant
+/*$dbQID = "";
+$sqlSelectQ = "SELECT * FROM questions WHERE questid='" . $rand . "'";
+$questionQuery = mysqli_query($link, $sqlSelectQ);
+if (mysqli_num_rows($questionQuery) != 0) {
+	while ($row = mysqli_fetch_assoc($questionQuery)) {
+		$dbQID = $row['questid'];
 
 		$dbAns1 = $row['ans1'];
 		$dbAns2 = $row['ans2'];
@@ -39,6 +87,24 @@ if(mysqli_num_rows($query) != 0) {
 	echo "This question does not exist!";
 }
 
+// Step 2: 
+$sqlSelectUQ = "SELECT * FROM userquestion WHERE qid='" . $dbQID . "'";
+$userquestionQuery = mysqli_query($link, $sqlSelectUQ);
+if (mysqli_num_rows($userquestionQuery) != 0) { // Question exists in userquestion table
+
+}
+
+$sqlUQCheck = ""
+//$sqlUser = "SELECT * FROM userquestion WHERE uid ='" . $_SESSION['sess_uid'] . "'";
+$sqlInsertUid = "INSERT INTO userquestion (uid, qid, score) VALUES ('" . $_SESSION['user_uid'] . "', 0, 0 )";
+
+$userSelectFromUserquestionQuery = mysqli_query($link, $sqlUser);
+if (mysqli_num_rows($userSelectFromUserquestionQuery) == 0) {
+ echo "not found";
+} else {
+ echo "found so now ";
+}*/
+
 ?>
 
 <!DOCTYPE html>
@@ -52,13 +118,14 @@ if(mysqli_num_rows($query) != 0) {
 
 	<h2>Welcome, <?=$_SESSION['sess_user'];?>! <a href="logout.php">Logout</a></h2>
 
-	<p>random: <?php echo $rand; ?></p>
+	<p>random: <?php echo $rand; ?></p> 
+	<p>Questid: <?php echo $dbQID; ?></p>
 
 	<div id="imgContainer">
 
 		<table name="imgTable" align="center">
 			<tr>
-				<p align="center"><?php echo $dbQuestion; ?></p>
+				<p align="center"><?php echo $dbQID; ?></p>
 			</tr>
 			<tr>
 			  	<td>
