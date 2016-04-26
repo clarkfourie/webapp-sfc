@@ -4,6 +4,8 @@ session_start();
 // Include site constants and $link to database
 include_once "base.php";
 
+$errArr = array();
+
 $rand = 0;
 
 // Variables to be displayed in html
@@ -18,9 +20,14 @@ $dbImg1 = $dbImg2 = $dbImg3 = $dbImg4 = "";
 // Step 3: if the rows returned are > 0 select a new question else write the uid and the qid to the userquestion table
 
 $flag = 1; // Dual purpose: 1) ends looping 2) sets score equal to 0 in UQ table
+$counter = 0; // to prevent infinite loop
 
-while ($flag == 1) { // will infinitely loop if a user has all questions listed in his db - FIX!!!
+while ($flag == 1) { // will infinitely loop if a user has all questions listed in his db
 	$rand = mt_rand(1,3);
+	$counter++; 
+	if ($counter > 10) { // break the while once counter reaches 10 - FIND A BETTER SOLUTION!!!
+		break;
+	}
 	$sqlSelectQ = "SELECT * FROM questions WHERE questid='" . $rand . "'";
 	$questionQuery = mysqli_query($link, $sqlSelectQ); 
 	if (mysqli_num_rows($questionQuery) != 0) { // $rand id exists in Q table
@@ -53,57 +60,16 @@ while ($flag == 1) { // will infinitely loop if a user has all questions listed 
 			$sqlInsertUQ = "INSERT INTO userquestion (uid, qid, score) VALUES ('" . $_SESSION['sess_uid'] . "', '" . $dbQID ."', '" . $flag . "' )";
 			$insertQuery = mysqli_query($link, $sqlInsertUQ);
 		} else {
-			echo "question is already in UQ table '" . $rand . "' ";
+			array_push($errArr, "question is already in UQ table rand=" . $rand);
 		}
 	} else {
-		echo "random number generated with no corresponding Q table value '" . $rand . "'";
+		array_push($errArr, "random number generated with no corresponding Q table rand='" . $rand);
 	}
 }
 
-// could be redundant
-/*$dbQID = "";
-$sqlSelectQ = "SELECT * FROM questions WHERE questid='" . $rand . "'";
-$questionQuery = mysqli_query($link, $sqlSelectQ);
-if (mysqli_num_rows($questionQuery) != 0) {
-	while ($row = mysqli_fetch_assoc($questionQuery)) {
-		$dbQID = $row['questid'];
+if ($counter > 10)
+	print_r($errArr);
 
-		$dbAns1 = $row['ans1'];
-		$dbAns2 = $row['ans2'];
-		$dbAns3 = $row['ans3'];
-		$dbAns4 = $row['ans4'];
-
-		$dbSponsor1 = $row['sponsor1'];
-		$dbSponsor2 = $row['sponsor2'];
-		$dbSponsor3 = $row['sponsor3'];
-		$dbSponsor4 = $row['sponsor4'];
-
-		$dbImg1 = $row['img1'];
-		$dbImg2 = $row['img2'];
-		$dbImg3 = $row['img3'];
-		$dbImg4 = $row['img4'];
-	}
-} else {
-	echo "This question does not exist!";
-}
-
-// Step 2: 
-$sqlSelectUQ = "SELECT * FROM userquestion WHERE qid='" . $dbQID . "'";
-$userquestionQuery = mysqli_query($link, $sqlSelectUQ);
-if (mysqli_num_rows($userquestionQuery) != 0) { // Question exists in userquestion table
-
-}
-
-$sqlUQCheck = ""
-//$sqlUser = "SELECT * FROM userquestion WHERE uid ='" . $_SESSION['sess_uid'] . "'";
-$sqlInsertUid = "INSERT INTO userquestion (uid, qid, score) VALUES ('" . $_SESSION['user_uid'] . "', 0, 0 )";
-
-$userSelectFromUserquestionQuery = mysqli_query($link, $sqlUser);
-if (mysqli_num_rows($userSelectFromUserquestionQuery) == 0) {
- echo "not found";
-} else {
- echo "found so now ";
-}*/
 
 ?>
 
