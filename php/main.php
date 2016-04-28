@@ -9,8 +9,9 @@ $errArr = array();
 $rand = 0;
 
 // Variables to be displayed in html
-$dbQID = "";
+$dbQID = $dbQuestion = "";
 $dbAns1 = $dbAns2 = $dbAns3 = $dbAns4 = "";
+$dbOpt = $dbOpt2 = $dbOpt3 = $dbOpt4 = "";
 $dbSponsor1 = $dbSponsor2 = $dbSponsor3 = $dbSponsor4 = "";
 $dbImg1 = $dbImg2 = $dbImg3 = $dbImg4 = "";
 
@@ -22,10 +23,10 @@ $dbImg1 = $dbImg2 = $dbImg3 = $dbImg4 = "";
 $flag = 1; // Dual purpose: 1) ends looping 2) sets score equal to 0 in UQ table
 $counter = 0; // to prevent infinite loop
 
-while ($flag == 1) { // will infinitely loop if a user has all questions listed in his db
+while ($flag == 1) { // will infinitely loop if a user has all questions listed in his db - prevent with $counter
 	$rand = mt_rand(1,3);
 	$counter++; 
-	if ($counter > 10) { // break the while once counter reaches 10 - FIND A BETTER SOLUTION!!!
+	if ($counter > 10) { // break the while once counter reaches 10 to prevent infinte loop - FIND A BETTER SOLUTION!!!
 		break;
 	}
 	$sqlSelectQ = "SELECT * FROM questions WHERE questid='" . $rand . "'";
@@ -38,12 +39,29 @@ while ($flag == 1) { // will infinitely loop if a user has all questions listed 
 			$flag = 0; // prevent further looping
 
 			while ($row = mysqli_fetch_assoc($questionQuery)) { // populate question variables from Q table
-					$dbQID = $row['questid'];
+					
+					$_SESSION['sess_qid'] = $rand; // set qid to be used in UpdateScore.php
 
+					$dbQID = $rand; // similar to qid in Q table
+					$dbQuestion = $row['question'];
+
+					// descriptive answer for display purposes
 					$dbAns1 = $row['ans1'];
 					$dbAns2 = $row['ans2'];
 					$dbAns3 = $row['ans3'];
 					$dbAns4 = $row['ans4'];
+
+					// indicates which answer is correct with a 1
+					$dbOpt1 = $row['opt1'];
+					$dbOpt2 = $row['opt2'];
+					$dbOpt3 = $row['opt3'];
+					$dbOpt4 = $row['opt4'];
+
+					// user answer get updated by a flag - PERHAPS REMOVE FROM DB!!!
+					$dbFlg1 = $row['flg1'];
+					$dbFlg2 = $row['flg2'];
+					$dbFlg3 = $row['flg3'];
+					$dbFlg4 = $row['flg4'];
 
 					$dbSponsor1 = $row['sponsor1'];
 					$dbSponsor2 = $row['sponsor2'];
@@ -69,8 +87,6 @@ while ($flag == 1) { // will infinitely loop if a user has all questions listed 
 
 if ($counter > 10)
 	print_r($errArr);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -92,6 +108,7 @@ if ($counter > 10)
 		<table name="imgTable" align="center">
 			<tr>
 				<p align="center"><?php echo $dbQID; ?></p>
+				<p align="center"><?php echo $dbQuestion; ?></p>
 			</tr>
 			<tr>
 			  	<td>
@@ -102,10 +119,8 @@ if ($counter > 10)
 					         <p><?php echo $dbAns1; ?></p>
 					    </div>
 					</div>
-
 			    </td>
-			    <td>
-			    	
+			    <td> 	
 			    	<div class="block2">
 					    <img src="<?php echo $dbImg2?>" alt="check db path" width="300" height="300">
 					    <div class="snipit">
@@ -118,7 +133,6 @@ if ($counter > 10)
 			</tr>
 			<tr>
 			    <td>
-
 			    	<div class="block3">
 					    <img src="<?php echo $dbImg3?>" alt="check db path" width="300" height="300">
 					    <div class="snipit">
@@ -126,10 +140,8 @@ if ($counter > 10)
 					         <p><?php echo $dbAns3; ?></p>
 					    </div>
 					</div>		    	
-
 				</td>
 				<td>
-
 			    	<div class="block4">
 					    <img src="<?php echo $dbImg4?>" alt="check db path" width="300" height="300">
 					    <div class="snipit">
@@ -142,6 +154,10 @@ if ($counter > 10)
 			</tr>
 		</table>		
 
+	</div>
+
+	<div id="buttonDiv">
+		<button class="radius title" name="submit" id="ansSubmit">Send request</button>
 	</div>
 
 </body>
