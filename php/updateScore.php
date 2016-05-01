@@ -4,11 +4,50 @@ session_start();
 // Include site constants and $link to database
 include_once "base.php";
 
-$score = 1;
+// variables to compare to user answer
+$dbOpt1 = $dbOpt2 = $dbOpt3 = $dbOpt4 = "";
 
-if(isset($_POST["dataStr"]))
-{
-	$sqlUpdateUQ = "UPDATE userquestion SET score = 1 WHERE uid = '" . $_SESSION['sess_uid'] . "' AND qid = '" . $_SESSION['sess_qid'] . "' LIMIT 1";
+// update score logic:
+// Step 1: compare the users answer to the db 
+// Step 2: if correct update score
+
+if(isset($_POST["data"]))
+{	
+	$sqlSelectQ = "SELECT * FROM questions WHERE questid='" . $_SESSION['sess_qid'] . "'";
+	$questionQuery = mysqli_query($link, $sqlSelectQ); 
+	if (mysqli_num_rows($questionQuery) != 0) {
+
+		$dbOpt1 = $row['opt1'];
+		$dbOpt1 = $row['opt2'];
+		$dbOpt1 = $row['opt3'];
+		$dbOpt1 = $row['opt4'];
+	}
+
+	$updateScore = 0; // if answer is correct set to 1
+	switch ($_POST["data"]) {
+		case 1:
+			if ($dbOpt1 == 1) 
+				$updateScore = 1;
+			break;
+		case 2:
+			if ($dbOpt1 == 2) 
+				$updateScore = 1;
+			break;
+		case 3:
+			if ($dbOpt1 == 3) 
+				$updateScore = 1;
+			break;
+		case 4:
+			if ($dbOpt1 == 4) 
+				$updateScore = 1;
+			break;
+		default:
+			$updateScore = 0;
+			break;
+	}
+
+	// update the score in UQ table
+	$sqlUpdateUQ = "UPDATE userquestion SET score = '" . $updateScore . "' WHERE uid = '" . $_SESSION['sess_uid'] . "' AND qid = '" . $_SESSION['sess_qid'] . "' LIMIT 1";
 	$updateUQQuery = mysqli_query($link, $sqlUpdateUQ);
 
 } else {
@@ -18,10 +57,6 @@ if(isset($_POST["dataStr"]))
 print_r($_SESSION);
 
 print_r($_POST);
-// $sqlUpdate = "UPDATE "
 
-// UPDATE Customers
-// SET ContactName='Alfred Schmidt', City='Hamburg'
-// WHERE CustomerName='Alfreds Futterkiste';
 
 ?>

@@ -11,17 +11,16 @@ $rand = 0;
 // Variables to be displayed in html
 $dbQID = $dbQuestion = "";
 $dbAns1 = $dbAns2 = $dbAns3 = $dbAns4 = "";
-$dbOpt = $dbOpt2 = $dbOpt3 = $dbOpt4 = "";
 $dbSponsor1 = $dbSponsor2 = $dbSponsor3 = $dbSponsor4 = "";
 $dbImg1 = $dbImg2 = $dbImg3 = $dbImg4 = "";
 
 // userquestion logic: 
-// Step 1: select a random question from the questions table, if there is not a corresponding question, select again
-// Step 2: query the userquestions table for the current session user to see if this question has already been asked
-// Step 3: if the rows returned are > 0 select a new question else write the uid and the qid to the userquestion table
+// Step 1: select a random question from the Q table, if there is not a corresponding question, select again
+// Step 2: query the UQ table for the current session user to see if this question has already been asked
+// Step 3: if the user has encountered the question before select a new question else write the uid and the qid to the UQ table
 
-$flag = 1; // Dual purpose: 1) ends looping 2) sets score equal to 0 in UQ table
-$counter = 0; // to prevent infinite loop
+$flag = 1; // dual purpose: 1) keeps loop running until conditions are met 2) sets score equal to 0 in UQ table
+$counter = 0; // prevents infinite loop
 
 while ($flag == 1) { // will infinitely loop if a user has all questions listed in his db - prevent with $counter
 	$rand = mt_rand(1,3);
@@ -50,18 +49,6 @@ while ($flag == 1) { // will infinitely loop if a user has all questions listed 
 					$dbAns2 = $row['ans2'];
 					$dbAns3 = $row['ans3'];
 					$dbAns4 = $row['ans4'];
-
-					// indicates which answer is correct with a 1
-					$dbOpt1 = $row['opt1'];
-					$dbOpt2 = $row['opt2'];
-					$dbOpt3 = $row['opt3'];
-					$dbOpt4 = $row['opt4'];
-
-					// user answer get updated by a flag - PERHAPS REMOVE FROM DB!!!
-					$dbFlg1 = $row['flg1'];
-					$dbFlg2 = $row['flg2'];
-					$dbFlg3 = $row['flg3'];
-					$dbFlg4 = $row['flg4'];
 
 					$dbSponsor1 = $row['sponsor1'];
 					$dbSponsor2 = $row['sponsor2'];
@@ -156,8 +143,12 @@ if ($counter > 10)
 
 	</div>
 
-	<div id="buttonDiv">
+	<div id="buttonDiv" align="center">
 		<button class="radius title" name="submit" id="ansSubmit">Send request</button>
+	</div>
+
+	<div id="infoDiv" align="center">
+
 	</div>
 
 </body>

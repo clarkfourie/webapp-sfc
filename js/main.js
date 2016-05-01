@@ -44,9 +44,7 @@
     var flag = 0;
 
     $(".block1").click(function() {
-        flag = 1;
-
-
+        flag = 1; 
         alert(flag);
     });
 
@@ -68,19 +66,41 @@
 
     $("#ansSubmit").click(function() {
 
-        $.ajax({
-            type: 'POST',
-            url: "updateScore.php",
-            cache: false,
-            data: {
-                dataStr: flag
-            },
-            success: function (response) {
-                alert("merge");
-            }
+        // $.ajax({
+        //     type: 'POST',
+        //     url: 'updateScore.php',
+        //     cache: false,
+        //     data: {
+        //         dataStr: flag
+        //     },
+        //     success: function (response) {
+        //         alert(flag);
+        //     },
+        // });
 
+        var jsonFlag = JSON.stringify(flag);
+
+        $.ajax({
+            type: "POST",
+            url: "updateScore.php",
+            dataType: "json",
+            contentType: "text/plain",
+            data:{ 
+                data : jsonFlag
+            },
+            success: function(data) {
+                alert(data.reply);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              alert(textStatus, errorThrown);
+            }
         });
+
+
+       // $("#infoDiv").load("updateScore.php");
   
     });
+
+    
 
 });
