@@ -10,6 +10,7 @@
 //     }
 // }
 
+
     $().ready(function(){
     "use strict";
 
@@ -64,40 +65,43 @@
     });
 
 
+
+// TRY TO GET THIS FIXED INSTEAD OF USING SESSION
     $("#ansSubmit").click(function() {
 
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "updateScore.php",
+    //         data:{ 
+    //             data : JSON.stringify(flag)
+    //         },
+    //         dataType: "json",
+    //         // async: false,
+    //         //contentType: "application/json",
+    //         success: function(data) {
+    //             alert(data.reply);
+    //         },
+    //         error: function(jqXHR, textStatus, errorThrown) {
+    //           alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+    //         }
+    //     });
+
+
         // $.ajax({
-        //     type: 'POST',
-        //     url: 'updateScore.php',
-        //     cache: false,
-        //     data: {
-        //         dataStr: flag
-        //     },
-        //     success: function (response) {
-        //         alert(flag);
-        //     },
+        //     url: "main.php",
+        //     success: function(data){ 
+        //         $.ajax({
+        //             url: "updateScore.php",
+        //             data: {id: flag},
+        //             success: function(data){ 
+        //                 // your code
+        //                 alert(data);
+        //             }
+        //         });
+        //     }
         // });
 
-        var jsonFlag = JSON.stringify(flag);
-
-        $.ajax({
-            type: "POST",
-            url: "updateScore.php",
-            dataType: "json",
-            contentType: "text/plain",
-            data:{ 
-                data : jsonFlag
-            },
-            success: function(data) {
-                alert(data.reply);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-              alert(textStatus, errorThrown);
-            }
-        });
-
-
-       // $("#infoDiv").load("updateScore.php");
+        $("#infoDiv").load("updateScore.php");
   
     });
 

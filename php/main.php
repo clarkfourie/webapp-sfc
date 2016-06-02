@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+//header('Content-type: application/json');
+
 // Include site constants and $link to database
 include_once "base.php";
 
@@ -94,7 +96,7 @@ if ($counter > 10)
 
 		<table name="imgTable" align="center">
 			<tr>
-				<p align="center"><?php echo $dbQID; ?></p>
+				<p align="center"><?php echo $dbQID;?></p>
 				<p align="center"><?php echo $dbQuestion; ?></p>
 			</tr>
 			<tr>
