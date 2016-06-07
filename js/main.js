@@ -69,22 +69,22 @@
 // TRY TO GET THIS FIXED INSTEAD OF USING SESSION
     $("#ansSubmit").click(function() {
 
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "updateScore.php",
-    //         data:{ 
-    //             data : JSON.stringify(flag)
-    //         },
-    //         dataType: "json",
-    //         // async: false,
-    //         //contentType: "application/json",
-    //         success: function(data) {
-    //             alert(data.reply);
-    //         },
-    //         error: function(jqXHR, textStatus, errorThrown) {
-    //           alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
-    //         }
-    //     });
+        $.ajax({
+            //type: "POST",
+            url: "updateScore.php",
+            data:{ 
+                id : flag
+            },
+            //dataType: "json",
+            // async: false,
+            //contentType: "application/json",
+            success: function(data) {
+                alert(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+            }
+        });
 
 
         // $.ajax({
