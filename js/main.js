@@ -64,20 +64,16 @@
         alert(flag);
     });
 
+    // Submit button
 
-
-// TRY TO GET THIS FIXED INSTEAD OF USING SESSION
     $("#ansSubmit").click(function() {
 
         $.ajax({
-            //type: "POST",
+            type: "POST",
             url: "updateScore.php",
             data:{ 
                 id : flag
             },
-            //dataType: "json",
-            // async: false,
-            //contentType: "application/json",
             success: function(data) {
                 alert(data);
             },
@@ -86,25 +82,9 @@
             }
         });
 
-
-        // $.ajax({
-        //     url: "main.php",
-        //     success: function(data){ 
-        //         $.ajax({
-        //             url: "updateScore.php",
-        //             data: {id: flag},
-        //             success: function(data){ 
-        //                 // your code
-        //                 alert(data);
-        //             }
-        //         });
-        //     }
-        // });
-
-        $("#infoDiv").load("updateScore.php");
-  
+        // UNCOMMENT THIS AND THE INFO DIV IN MAIN.PHP TO VIEW UPDATESCORE.PHP
+        //$("#infoDiv").load("updateScore.php");
+        
     });
-
-    
 
 });

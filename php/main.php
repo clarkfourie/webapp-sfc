@@ -148,10 +148,11 @@ if ($counter > 10)
 	<div id="buttonDiv" align="center">
 		<button class="radius title" name="submit" id="ansSubmit">Send request</button>
 	</div>
-
+ 
+ <!-- UNCOMMENT THIS AND THE INFO DIV IN MAIN.PHP TO VIEW UPDATESCORE.PHP
 	<div id="infoDiv" align="center">
 
-	</div>
+	</div> -->
 
 </body>
 </html>

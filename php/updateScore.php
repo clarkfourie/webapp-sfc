@@ -12,71 +12,65 @@ $dbOpt1 = $dbOpt2 = $dbOpt3 = $dbOpt4 = "";
 // Step 1: compare the users answer to the db 
 // Step 2: if they match update score
 
-/*$json = file_get_contents('php://input');
-$data = json_decode($json);
+$id = 0; // define $id before it can be assigned
 
-if(isset($data))*/
-$id = 0;
-$id = $_GET['id'];
-echo $id;
-    
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-// if (isset($_SESSION['sess_flg']))
-//  if($id > 0) {	
-// 	$sqlSelectQ = "SELECT * FROM questions WHERE questid='" . $_SESSION['sess_qid'] . "'";
-// 	$questionQuery = mysqli_query($link, $sqlSelectQ); 
-// 	if (mysqli_num_rows($questionQuery) != 0) {
-// 		while ($row = mysqli_fetch_assoc($questionQuery)) {
-// 			$dbOpt1 = $row['opt1'];
-// 			$dbOpt2 = $row['opt2'];
-// 			$dbOpt3 = $row['opt3'];
-// 			$dbOpt4 = $row['opt4'];			
-// 		}
-// 	}
+	if (isset($_POST["id"])) {
+		$id = $_POST["id"];
+	}
 
-// 	$updateScore = 0; // if answer is correct set to 1
-// 	switch ($id) {
-// 		case 1:
-// 			if ($dbOpt1 == 1) 
-// 				$updateScore = 1;
-// 			break;
-// 		case 2:
-// 			if ($dbOpt2 == 1) 
-// 				$updateScore = 1;
-// 			break;
-// 		case 3:
-// 			if ($dbOpt3 == 1) 
-// 				$updateScore = 1;
-// 			break;
-// 		case 4:
-// 			if ($dbOpt4 == 1) 
-// 				$updateScore = 1;
-// 			break;
-// 		default:
-// 			$updateScore = 0;
-// 			break;
-// 	}
+	if($id > 0) { // a value must be sent through
+		$sqlSelectQ = "SELECT * FROM questions WHERE questid='" . $_SESSION['sess_qid'] . "'";
+		$questionQuery = mysqli_query($link, $sqlSelectQ); 
+		if (mysqli_num_rows($questionQuery) != 0) {
+			while ($row = mysqli_fetch_assoc($questionQuery)) {
+				$dbOpt1 = $row['opt1'];
+				$dbOpt2 = $row['opt2'];
+				$dbOpt3 = $row['opt3'];
+				$dbOpt4 = $row['opt4'];			
+			}
+		}
 
-// 	// update the score in UQ table
-// 	$sqlUpdateUQ = "UPDATE userquestion SET score = '" . $updateScore . "' WHERE uid = '" . $_SESSION['sess_uid'] . "' AND qid = '" . $_SESSION['sess_qid'] . "' LIMIT 1";
-// 	$updateUQQuery = mysqli_query($link, $sqlUpdateUQ);
+		$updateScore = 0; // if answer is correct (==1) update score to 1
+		switch ($id) {
+			case 1:
+				if ($dbOpt1 == 1) 
+					$updateScore = 1;
+				break;
+			case 2:
+				if ($dbOpt2 == 1) 
+					$updateScore = 1;
+				break;
+			case 3:
+				if ($dbOpt3 == 1) 
+					$updateScore = 1;
+				break;
+			case 4:
+				if ($dbOpt4 == 1) 
+					$updateScore = 1;
+				break;
+			default:
+				$updateScore = 0;
+				break;
+		}
 
-// 	// USE WHEN YOU GET JQUERY POST TO WORK
-// 	// $returned["reply"] = "success!"; 
+		// update the score in UQ table
+		$sqlUpdateUQ = "UPDATE userquestion SET score = '" . $updateScore . "' WHERE uid = '" . $_SESSION['sess_uid'] . "' AND qid = '" . $_SESSION['sess_qid'] . "' LIMIT 1";
+		$updateUQQuery = mysqli_query($link, $sqlUpdateUQ);
 
-// } else {
-// 	// USE WHEN YOU GET JQUERY POST TO WORK
-// 	// $returned["reply"] = "no data received";
-// 	echo "No data received";
-// }
+		// response to user
+		echo "Your answer has been submitted.";
 
-print_r($_SESSION);
+	} else {
+		echo "No data received";
+	}
+
+} // $_POST
+
+// print_r($_SESSION);
 
 // print_r($_POST);
-
-// print_r($_GET);
-
-//echo json_encode($returned);
 
 ?>
 
