@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 
 //header('Content-type: application/json');
 
@@ -92,8 +92,6 @@ if ($counter > 10)
 <body>
 
 	<div id="imgContainer"> 
-
-	<h2>Welcome, <?=$_SESSION['sess_user'];?>! <a href="logout.php">Logout</a></h2>
 
 	<p>random: <?php echo $rand; ?></p> 
 	<p>Questid: <?php echo $dbQID; ?></p>

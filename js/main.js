@@ -67,8 +67,6 @@
     // Submit button
 
     $("#ansSubmit").click(function() {
-        alert ("yes");
-
         $.ajax({
             type: "POST",
             url: "updateScore.php",

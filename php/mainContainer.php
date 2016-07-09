@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 
 ?>
 
@@ -7,10 +7,28 @@
 <html>
 <head>
 	<link rel="stylesheet" href="../css/main.css" type="text/css" />
-	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script src="../js/main.js"></script>-->
 </head>
-<body>
+<body class="login">
+<!-- header starts here -->
+<div id="facebook-Bar">
+  <div id="facebook-Frame">
+  	<table>
+	  	<tr>
+	    	<div id="logo"> <img src="..\img\logo\sfc small.png" alt="logo img"> </div>
+		</tr>
+		<tr>
+	    	<h2><font color="white">Welcome, <?=$_SESSION['sess_user'];?>! <a href="logout.php">Logout</a></font></h2>
+		</tr>
+	</table>
+    <div id="header-main-right">
+      <div id="header-main-right-nav">
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- header ends here -->
+
 
 <div id="content">
 	<?php include("main.php"); ?>
