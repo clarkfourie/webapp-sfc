@@ -27,14 +27,18 @@ $counter = 0; // prevents infinite loop
 while ($flag == 1) { // will infinitely loop if a user has all questions listed in his db - prevent with $counter
 	$rand = mt_rand(1,3);
 	$counter++; 
+
 	if ($counter > 10) { // break the while once counter reaches 10 to prevent infinte loop - FIND A BETTER SOLUTION!!!
 		break;
 	}
+	
 	$sqlSelectQ = "SELECT * FROM questions WHERE questid='" . $rand . "'";
 	$questionQuery = mysqli_query($link, $sqlSelectQ); 
+
 	if (mysqli_num_rows($questionQuery) != 0) { // $rand id exists in Q table
 		$sqlSelectUQ = "SELECT * FROM userquestion WHERE qid='" . $rand . "'";
 		$userquestionQuery = mysqli_query($link, $sqlSelectUQ);
+
 		if (mysqli_num_rows($userquestionQuery) == 0) { // Question is not already in UQ table
 			
 			$flag = 0; // prevent further looping
@@ -83,16 +87,16 @@ if ($counter > 10)
 <head>
 	<link rel="stylesheet" href="../css/main.css" type="text/css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script src="../js/main.js"></script>
+	<script src="../js/main.js"></script> 
 </head>
 <body>
+
+	<div id="imgContainer"> 
 
 	<h2>Welcome, <?=$_SESSION['sess_user'];?>! <a href="logout.php">Logout</a></h2>
 
 	<p>random: <?php echo $rand; ?></p> 
 	<p>Questid: <?php echo $dbQID; ?></p>
-
-	<div id="imgContainer">
 
 		<table name="imgTable" align="center">
 			<tr>
@@ -138,20 +142,20 @@ if ($counter > 10)
 					         <p><?php echo $dbAns4; ?></p>
 					    </div>
 					</div>
-
 				</td> 
 			</tr>
-		</table>		
-
-	</div>
+		</table>
 
 	<div id="buttonDiv" align="center">
 		<button class="radius title" name="submit" id="ansSubmit">Send request</button>
 	</div>
- 
+
+
+	</div>
+
+
  <!-- UNCOMMENT THIS AND THE INFO DIV IN MAIN.PHP TO VIEW UPDATESCORE.PHP
 	<div id="infoDiv" align="center">
-
 	</div> -->
 
 </body>

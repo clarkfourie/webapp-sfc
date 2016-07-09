@@ -67,6 +67,7 @@
     // Submit button
 
     $("#ansSubmit").click(function() {
+        alert ("yes");
 
         $.ajax({
             type: "POST",
@@ -76,6 +77,9 @@
             },
             success: function(data) {
                 alert(data);
+                // reload main.php to receive a new question
+                $("#content").load("main.php");
+
             },
             error: function(jqXHR, textStatus, errorThrown) {
               alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
