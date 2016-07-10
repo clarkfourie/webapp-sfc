@@ -1,0 +1,150 @@
+
+body {
+  background: #02021a url("https://raw.githubusercontent.com/balajmarius/hamburger-animation/master/assets/img/bg.jpg") no-repeat 0 0;
+  -webkit-background-size: 100% auto;
+  background-size: 100% auto;
+  color: #fff;
+  font-family: Helvetica Neue, Helvetica, Open sans, Arial, sans-serif;
+  font-weight:lighter;
+  letter-spacing:1px;
+}
+
+.content {
+  width: 320px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.content h2 {
+  margin: 35px 0 0;
+}
+
+.content h1 {
+  text-align: center;
+  margin: 1000px 0 200px;
+}
+
+.content h1 span {
+  display: block;
+  width: 100%;
+  margin: 5px 0 0;
+  opacity: .5;
+}
+
+.content .header__fake {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  margin-left: -160px;
+  width: 320px;
+}
+
+.content .header__fake i {
+  display: block;
+}
+
+.content .header__fake .btm__border {
+  height: 1px;
+  background: #fff;
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  -webkit-transition: left 0.5s;
+  transition: left 0.5s;
+}
+
+.content .header__fake .icn__wrap {
+  cursor: pointer;
+  float: right;
+  width: 58px;
+  position: relative;
+  height: 58px;
+  margin-right: -20px;
+}
+
+.content .header__fake .icn__wrap .icn__hamburger {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translateX(-50%) translateY(-6px);
+  -ms-transform: translateX(-50%) translateY(-6px);
+  transform: translateX(-50%) translateY(-6px);
+  display: block;
+  width: 18px;
+  height: 1px;
+  z-index: 999;
+  background: #fff;
+}
+
+.content .header__fake .icn__wrap .icn__hamburger:after,
+.content .header__fake .icn__wrap .icn__hamburger:before {
+  content: "";
+  float: left;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: #fff;
+  margin: 5px 0 0;
+}
+
+.content .header__fake .icn__wrap .icn__hamburger:before {
+  margin: 6px 0 0;
+}
+
+.content .header__fake .icn__wrap svg {
+  z-index: 10;
+}
+
+.content .header__fake .icn__wrap svg circle {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 39 39;
+  stroke-dashoffset: -39;
+  -webkit-transition: stroke-dashoffset 0.5s;
+  transition: stroke-dashoffset 0.5s;
+}
+
+.content .header__fake.animated .btm__border {
+  left: 100%;
+  right: 4px;
+}
+
+.content .header__fake.animated svg circle {
+  stroke-dashoffset: 0;
+  -webkit-transition: stroke-dashoffset 0.5s;
+  transition: stroke-dashoffset 0.5s;
+}
+
+.content .header__fake.fix .btm__border {
+  -webkit-animation: fix 0.2s linear;
+  animation: fix 0.2s linear;
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  right: 5px;
+}
+
+@-webkit-keyframes fix {
+  from {
+    right: 5px;
+  }
+
+  to {
+    right: 0px;
+  }
+}
+
+@keyframes fix {
+  from {
+    right: 5px;
+  }
+
+  to {
+    right: 0px;
+  }
+}

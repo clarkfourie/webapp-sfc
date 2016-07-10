@@ -1,7 +1,9 @@
 <?php
-//session_start();
 
-//header('Content-type: application/json');
+// check because of session is loaded on mainContainer.php as well
+if (session_status() == PHP_SESSION_NONE) { 
+    session_start();
+}
 
 // Include site constants and $link to database
 include_once "base.php";
