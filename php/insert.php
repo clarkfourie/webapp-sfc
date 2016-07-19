@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // Include site constants and $link to database
 include_once "base.php";
 
@@ -101,16 +103,20 @@ if (($firstnameErr == "OK") && ($lastnameErr == "OK") && ($emailErr == "OK") && 
       $message = 'Dear ' . $firstname;
       $message .= '. Welcome to SFC!'; 
 
-      $headers = 'From: welcom@sfc.com';
+      $headers = 'From: welcome@sfc.com';
+
+      header('Location: mainContainer.php');   
        
       // Sending email
       if (mail($to,$subject,$message,$headers)) {
           echo 'Your mail has been sent successfully.';
 
           // load main.html
-          $doc = new DOMDocument();
-          $doc->loadHTMLFile("C:/xampp/htdocs/sfc/html/main.html");
-          echo $doc->saveHTML();
+
+         // header('Location: mypage.php');    
+          // $doc = new DOMDocument();
+          // $doc->loadHTMLFile("C:/xampp/htdocs/sfc/php/mid.php");
+          // echo $doc->saveHTML();
 
       } else {
           echo 'Unable to send email. Please try again.';

@@ -85,37 +85,70 @@ $().ready(function () {
     },
 
     // uncomment to put validation messages in a box - must fix css as well.
-    // errorContainer: $('#errorContainer'),
-    // errorLabelContainer: $('#errorContainer ul'),
-    // wrapper: 'li'
+    errorContainer: $('#errorContainer'),
+    errorLabelContainer: $('#errorContainer ul'),
+    wrapper: 'li'
 
   });
 
   // Login form validation
-  $('#login_form').validate({
+  // $('#login_form').validate({
 
-    rules: {
-      loginEmail: {
-        required: true,
-        maxlength: 64
-      },
-      loginPasswd: {
-        required: true,
-        maxlength: 32
-      }
-    },
+  //   rules: {
+  //     loginEmail: {
+  //       required: true,
+  //       maxlength: 64
+  //     },
+  //     loginPasswd: {
+  //       required: true,
+  //       maxlength: 32
+  //     }
+  //   },
 
-    messages: {
-      loginEmail: {
-        required: "Please enter your email.",
-        maxlength: "Your email address cannot exceed 64 characters."
-      },
-      loginPasswd: {
-        required: "Please enter your password.",
-        maxlength: "Your password cannot exceed 32 characters."
-      }
-    }
+  //   messages: {
+  //     loginEmail: {
+  //       required: "Please enter your email.",
+  //       maxlength: "Your email address cannot exceed 64 characters."
+  //     },
+  //     loginPasswd: {
+  //       required: "Please enter your password.",
+  //       maxlength: "Your password cannot exceed 32 characters."
+  //     }
+  //   }
+  // });
 
+// Registration form slide
+  $('#reg-div').hide();
+  $('#reg-btn').click(function(e) {
+      e.preventDefault();
+     $('#reg-div').stop().slideToggle(500);
   });
+
+// Send checkbox to mid.php
+  // $("#loginBtn").click(function() {
+
+  //   //alert($("#persist_box").val());
+
+  //       $.ajax({
+  //           type: "POST",
+  //           url: "mid.php",
+  //           data:{ 
+  //               id : flag
+  //           },
+  //           success: function(data) {
+  //               alert(data);
+  //               // reload main.php to receive a new question
+  //               //$("#content").load("mid.php");
+
+  //           },
+  //           error: function(jqXHR, textStatus, errorThrown) {
+  //             alert("jqXHR: " + jqXHR.status + "\ntextStatus: " + textStatus + "\nerrorThrown: " + errorThrown);
+  //           }
+  //       });
+
+  //       // UNCOMMENT THIS AND THE INFO DIV IN MAIN.PHP TO VIEW UPDATESCORE.PHP
+  //       //$("#infoDiv").load("updateScore.php");
+        
+  //   });
 
 });

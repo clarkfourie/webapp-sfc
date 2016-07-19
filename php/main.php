@@ -31,14 +31,16 @@ while ($flag == 1) { // will infinitely loop if a user has all questions listed 
 	$counter++; 
 
 	if ($counter > 10) { // break the while once counter reaches 10 to prevent infinte loop - FIND A BETTER SOLUTION!!!
-		break;
+		break; 	// IDEA: Filter the question table to exclude all the qid's the user has received. 
+				// Adjust mt_rand(1,count(all questions not received))
+				// if the count(all questoins not received) = null display "all questions answered page" 
 	}
 	
 	$sqlSelectQ = "SELECT * FROM questions WHERE questid='" . $rand . "'";
 	$questionQuery = mysqli_query($link, $sqlSelectQ); 
 
 	if (mysqli_num_rows($questionQuery) != 0) { // $rand id exists in Q table
-		$sqlSelectUQ = "SELECT * FROM userquestion WHERE qid='" . $rand . "'";
+		$sqlSelectUQ = "SELECT * FROM userquestion WHERE qid='" . $rand . "' AND uid= '" . $_SESSION['sess_uid'] . "'";
 		$userquestionQuery = mysqli_query($link, $sqlSelectUQ);
 
 		if (mysqli_num_rows($userquestionQuery) == 0) { // Question is not already in UQ table
