@@ -112,13 +112,15 @@ if ($counter > 10)
 
 	<div id="imgContainer"> 
 
-	<p>random: <?php echo $rand; ?></p> 
-	<p>Questid: <?php echo $dbQID; ?></p>
+<!-- 	<p>random: <?php echo $rand; ?></p> 
+	<p>Questid: <?php echo $dbQID; ?></p> -->
 
 		<table name="imgTable" align="center">
 			<tr>
-				<p align="center"><?php echo $dbQID;?></p>
+				<p align="center">Question #<?php echo $dbQID;?></p>
+				<br>
 				<p align="center"><?php echo $dbQuestion; ?></p>
+				<br>
 			</tr>
 			<tr>
 			  	<td>

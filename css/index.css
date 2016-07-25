@@ -317,7 +317,7 @@ body {
 }
 
 #content p {
-  font-size: 20px;
+  font-size: 24px;
   color: #000;
   font-family: "Adobe Caslon Pro", "Hoefler Text", Georgia, Garamond, Times, serif;
 }
@@ -365,3 +365,48 @@ input.error {
 }
 
 /* --- jQuery validation style --- */ 
+
+/* --- Responsive top nav --- */
+
+#navBar {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body {margin: 0;}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    /*border-left: 1px;*/
+    width: 80px;
+    font-size: 20px;
+
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #cfb0cf;}
+
+ul.topnav li a.active {background-color: #bb90bb;}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right,
+    ul.topnav li {float: none;}
+}
+
+/* --- Responsive top nav  End --- */

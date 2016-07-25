@@ -1,6 +1,13 @@
 PRIMARY
+Navigation for pages
 Sending an email on registration.
 MainContainer CSS
+Load more questions (at least 5)
 
 SECONDARY
+
+
+FUTURE
 Updating the database to proposed structure.
+Page where user can edit his/her details
+Mobile app (imperative!)

@@ -36,6 +36,7 @@ session_start();
 
 	<h1> Well, it seems that you have answered all the quesitons we have, please come back later.</h1>
 	<a href="logout.php">Logout</a>
+  <a href="mid.php">Reload questions</a>
 	<p><? printf($_SESSION)?></p>
 
 </div>
