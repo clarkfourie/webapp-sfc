@@ -105,7 +105,7 @@ if (($firstnameErr == "OK") && ($lastnameErr == "OK") && ($emailErr == "OK") && 
 
       $headers = 'From: welcome@sfc.com';
 
-      header('Location: mainContainer.php');   
+      header('Location: mid.php');   
        
       // Sending email
       if (mail($to,$subject,$message,$headers)) {

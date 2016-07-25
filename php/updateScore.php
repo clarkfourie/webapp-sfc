@@ -55,8 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				break;
 		}
 
+		echo $updateScore;
+		echo $_SESSION['sess_uid'];
+		echo $_SESSION['sess_qid'];
+
+
 		// update the score in UQ table
-		$sqlUpdateUQ = "UPDATE userquestion SET score = '" . $updateScore . "' WHERE uid = '" . $_SESSION['sess_uid'] . "' AND qid = '" . $_SESSION['sess_qid'] . "' LIMIT 1";
+		$sqlUpdateUQ = "UPDATE userquestion SET answered = 1, score = '" . $updateScore . "' WHERE uid = '" . $_SESSION['sess_uid'] . "' AND qid = '" . $_SESSION['sess_qid'] . "' LIMIT 1";
 		$updateUQQuery = mysqli_query($link, $sqlUpdateUQ);
 
 		// response to user

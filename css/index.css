@@ -229,7 +229,7 @@ body {
   left: 0;
   bottom: 0;
   right: 0;
-  background: #a4b9ff;
+  background: #fff;
 }
 
 /* 5) */
@@ -335,12 +335,7 @@ body {
     margin-right: auto;
     background-color: #fff;
     width: 50%;
-
 }
-
-/*#reg-button {
-  padding-top: 7px;
-}*/
 
  /* --- Registration END --- */
 

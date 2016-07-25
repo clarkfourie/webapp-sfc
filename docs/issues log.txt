@@ -1,0 +1,6 @@
+PRIMARY
+Sending an email on registration.
+MainContainer CSS
+
+SECONDARY
+Updating the database to proposed structure.
