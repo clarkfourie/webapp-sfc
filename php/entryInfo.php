@@ -67,6 +67,20 @@ $globalQuestionsValue = mysqli_num_rows($globalQuestionsQuery);
 
   <!-- ************************************************** CONTENT ************************************************** -->
 
+<div id="navBar">
+
+  <ul class="topnav">
+    <li><a class="active" href="MainContainer.php">Questions</a></li>
+    <li><a href="entryInfo.php">Statistics</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="right"><a href="profile.php"><?=$_SESSION['sess_user'];?></a></li>
+  </ul>
+
+</div>
+
+<div class="empty-space">
+</div>
+
 <div id="content" class="knockout-top-to-bottom">
 
   <ul class="tab">

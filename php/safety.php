@@ -12,7 +12,7 @@ session_start();
 <!-- hotlink jQuery and jQuery validation plugin -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
-<script src="../js/index.js"></script>
+<!-- <script src="../js/index.js"></script> -->
 </head>
 <body class="login">
 
@@ -35,6 +35,9 @@ session_start();
 <div id="content" class="knockout-top-to-bottom">
 
 	<h1> Well, it seems that you have answered all the quesitons we have, please come back later.</h1>
+
+ <div class="soft-embossed"><img class="image-wrap" src="..\img\error\coffee pug resize.png" alt="coffee pug img"></div>
+  
 	<a href="logout.php">Logout</a>
   <a href="mid.php">Reload questions</a>
 	<p><? printf($_SESSION)?></p>

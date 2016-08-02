@@ -26,7 +26,7 @@ session_start();
     </div>
     <div id="top-bar-right">
       <div class="registrationForm">
-        <form   id="login_form" action="..\php\login.php" method="post">
+        <form   id="login_form" action="login.php" method="post">
           <div>
             <table border="0" style="border:none">
               <tr>

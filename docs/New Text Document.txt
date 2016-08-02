@@ -3,7 +3,6 @@ Navigation for pages
 Sending an email on registration.
 MainContainer CSS
 Load more questions (at least 5)
-Fix login validation
 
 SECONDARY
 
