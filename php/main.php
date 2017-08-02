@@ -48,7 +48,7 @@ while ($flag == 1) { // will infinitely loop if a user has all questions listed 
 
 		if (mysqli_num_rows($userquestionQuery) == 0) { // Question is not already in UQ table
 
-			// $flag = 0;
+			 $flag = 0;
 			
 			while ($row = mysqli_fetch_assoc($questionQuery)) { // populate question variables from Q table
 					
